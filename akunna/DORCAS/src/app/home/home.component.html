@@ -23,21 +23,18 @@
              class="alert alert-danger"> 
          Last Name is required.
         </div>  
-      </div>                   
-                                  
-      <label>Gender</label>    
-      <div class="radio">    
-        <label>   
-            <input type="radio" name="gender" value="fm" checked>
-            Female  
-        </label>  
-      </div>  
-   
-      <div class="radio"> 
-        <label>  
-            <input type="radio" name="gender" value="m">
-            Male   
-        </label>   
+                    
+                                 
+     <label> Gender </label>
+     <div class="radio">
+         <label>
+             <input type="radio" name="gender" value="male"   [(ngModel)] = "model.gender">Male</label>
+     </div>
+     <div class="radio">
+         <label>
+             <input type="radio" name="gender" value="female"   [(ngModel)] = "model.gender">Female</label>
+     </div>
+          
       </div>  
  
       <div class="form-group" [class.has-error]="hasStateError">
@@ -75,3 +72,26 @@
    Angular:{{ form.value | json}}
    <h3>{{form.valid}}</h3> --> 
 </div>  
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+   $scope.submitForm= function(){
+      var data = {
+            state: $scope.state,
+            firstname : $scope.firstname,
+            lastname : $scope.lastname,
+            address: $address,
+            gender: $gender,
+            student: $scope.student
+      }
+    $http.post('', data)
+                .success(function (data, status, headers, config) {
+                    $scope.PostDataResponse = data;
+                })
+                .error(function(data, status, header, config){
+                    $scope.PostDataResponse = "Data: " + status;
+                });
+    };  
+
+});
+</script>
